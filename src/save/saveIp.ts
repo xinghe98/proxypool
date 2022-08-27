@@ -1,29 +1,24 @@
-import { createClient } from 'redis';
+import  Redis  from 'ioredis';
 import config from '../conf/config';
-type IpScore ={
-    score: number;
-    value: string;
-}
 // 储存模块
 class save {
     public client
     constructor() {
-        this.client = createClient({ url: config.redis.url });
-        this.client.on('error', (err: any) => console.log('Redis Client Error', err));
-        this.client.connect();
+        this.client = new Redis(config.redis.url);
+        this.client.on('error', (err:any) => console.log('Redis Client Error', err));
     }
     // 储存方法
     async saveIp(value: string, score: number = 100): Promise<boolean> {
         try {
-            await this.client.zAdd("key", { score: score, value: value })
+            await this.client.zadd("key", score, value)
             return true;
         } catch (err) {
             return false;
         }
     }
     // 获取全部代理方法
-    async fetchIp():Promise<IpScore[]> {
-        const re =await this.client.ZRANGE_WITHSCORES("key",0,-1);
+    async fetchIp(): Promise<string[]> {
+        const re =await this.client.zrange("key",0,-1,"WITHSCORES");
         return re;
     }
 }
