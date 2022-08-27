@@ -12,6 +12,7 @@ class save {
         this.client.on('error', (err: any) => console.log('Redis Client Error', err));
         this.client.connect();
     }
+    // 储存方法
     async saveIp(value: string, score: number = 100): Promise<boolean> {
         try {
             await this.client.zAdd("key", { score: score, value: value })
@@ -20,7 +21,8 @@ class save {
             return false;
         }
     }
-    async getIp():Promise<IpScore[]> {
+    // 获取全部代理方法
+    async fetchIp():Promise<IpScore[]> {
         const re =await this.client.ZRANGE_WITHSCORES("key",0,-1);
         return re;
     }
