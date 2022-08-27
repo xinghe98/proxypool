@@ -1,5 +1,5 @@
 
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 
 class testIp {
 
