@@ -20,24 +20,21 @@ class testIp {
             timeout: 5000,
         })
         try {
-            console.log("正在使用的ip是:" + ipadd);
-            const res = await request.get('http://icanhazip.com/')
+            // console.log("正在使用的ip是:" + ipadd);
+            const res = await request.get('http://myip.ipip.net/')
             console.log("检测使用的ip为" + res.data);
-            return true
+            // return true
+            return
         } catch (error: any) {
             console.log(error.config.proxy);
-            return false
+            // return false
         }
     }
     async run() {
         const res = await this.saveProxy.fetchIp();
-        this.saveProxy.client.quit()
-        const proxyip = res.map((item: any) => {
-            return item.value;
-        })
-        console.log(proxyip);
+        console.log(res);
         let promiseArr: any[] = [];
-        for await (const item of proxyip ?? []) {
+        for await (const item of res ?? []) {
             promiseArr.push(this.useIp(item));
         }
         await Promise.all(promiseArr);

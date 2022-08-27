@@ -18,7 +18,7 @@ class save {
     }
     // 获取全部代理方法
     async fetchIp(): Promise<string[]> {
-        const re =await this.client.zrange("key",0,-1,"WITHSCORES");
+        const re =await this.client.zrange("key",0,-1);
         return re;
     }
 }
