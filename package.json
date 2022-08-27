@@ -11,12 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "@types/superagent": "^4.1.15",
+    "install": "^0.13.0",
+    "request": "^2.88.2",
     "tsc-node": "^0.0.3",
     "typescript": "^4.7.4"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/redis": "^4.0.11",
+    "@types/superagent-proxy": "^3.0.0",
+    "axios": "^0.27.2",
     "redis": "^4.3.0",
-    "superagent": "^8.0.0"
+    "superagent": "^8.0.0",
+    "superagent-proxy": "^3.0.0"
   }
 }
