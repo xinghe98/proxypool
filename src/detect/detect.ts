@@ -1,5 +1,5 @@
 
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosError, AxiosInstance } from 'axios'
 import save from '../save/saveIp';
 // 检测模块
 class testIp {
@@ -33,11 +33,14 @@ class testIp {
             ;
             // return true
             return
-        } catch (error: any) {
+        } catch (error) {
+            if (error instanceof AxiosError){
+                console.log("检测使用的ip为:"+ip+'失败'+error.message)
+                this.saveProxy.saveIp(ip, -10);
+    
+            }
             // console.log(error.code);
-            console.log("检测使用的ip为:"+ip+'失败')
-            const re = this.saveProxy.saveIp(ip, -10);
-
+            
             // return false
         }
     }

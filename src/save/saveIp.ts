@@ -19,8 +19,11 @@ class save {
     async saveIp(value: string, score: number = 10): Promise<boolean> {
         try {
             if (score<0) {
-               const originscore = await this.returnScore(value);
-               console.log(originscore+score);
+            const originscore = await this.returnScore(value);
+            if (originscore===0){
+                await this.deleteip(value)
+                return true
+            }
                 await this.client.zadd("key", originscore+score, value)
             }else{
             await this.client.zadd("key", score, value)
@@ -43,6 +46,14 @@ class save {
     async fetchIp(): Promise<string[]> {
         const re =await this.client.zrange("key",0,-1);
         return re;
+    }
+    /**
+     * 
+     * @param member 
+     * 当分数降为0时，删除该元素
+     */
+    async deleteip(member:string){
+        await this.client.zrem("key",member)
     }
     }
 
