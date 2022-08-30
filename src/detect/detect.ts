@@ -46,10 +46,11 @@ class testIp {
     async run() {
         const count = await this.saveProxy.client.zcard('key');
         let i: number
-        for (i = 0; i <= count; i + 50) {
+        for (i = 0; i <= count; i += 50) {
             // 每次取50个进行测试
             const start: number = i;
             const end: number = Math.min(i + 50, count);
+            console.log(start, end)
             const res = await this.saveProxy.fetchIp(start, end);
             console.log(res);
             let promiseArr: any[] = [];
