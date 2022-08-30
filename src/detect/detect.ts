@@ -1,4 +1,3 @@
-
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import save from '../save/saveIp';
 // 检测模块
@@ -27,32 +26,40 @@ class testIp {
                 this.saveProxy.saveIp(ip, 100);
             }
             else {
-                console.log("检测使用的ip为:"+ip+'失败')
+                console.log("检测使用的ip为:" + ip + '失败')
                 this.saveProxy.saveIp(ip, -10);
             }
             ;
             // return true
             return
         } catch (error) {
-            if (error instanceof AxiosError){
-                console.log("检测使用的ip为:"+ip+'失败'+error.message)
+            if (error instanceof AxiosError) {
+                console.log("检测使用的ip为:" + ip + '失败' + error.message)
                 this.saveProxy.saveIp(ip, -10);
-    
+
             }
             // console.log(error.code);
-            
+
             // return false
         }
     }
     async run() {
-        const res = await this.saveProxy.fetchIp();
-        console.log(res);
-        let promiseArr: any[] = [];
-        for await (const item of res ?? []) {
-            promiseArr.push(this.useIp(item));
+        const count = await this.saveProxy.client.zcard('key');
+        let i: number
+        for (i = 0; i <= count; i + 50) {
+            // 每次取50个进行测试
+            const start: number = i;
+            const end: number = Math.min(i + 50, count);
+            const res = await this.saveProxy.fetchIp(start, end);
+            console.log(res);
+            let promiseArr: any[] = [];
+            for await (const item of res ?? []) {
+                promiseArr.push(this.useIp(item));
+            }
+            await Promise.all(promiseArr);
         }
-        await Promise.all(promiseArr);
     }
+
 }
 
 export default testIp;

@@ -43,8 +43,8 @@ class save {
 
     }
     // 获取全部代理方法
-    async fetchIp(): Promise<string[]> {
-        const re =await this.client.zrange("key",0,-1);
+    async fetchIp(start:number,end:number): Promise<string[]> {
+        const re =await this.client.zrange("key",start,end);
         return re;
     }
     /**
