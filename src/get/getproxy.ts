@@ -32,7 +32,7 @@ async run(){
         promiseArr.push(this.saveProxy.saveIp(item));
     }
     await Promise.all(promiseArr);
-    this.saveProxy.client.quit();
+    // await this.saveProxy.client.quit();
 }
 }
 

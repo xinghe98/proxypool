@@ -7,8 +7,16 @@ class save {
         this.client = new Redis(config.redis.url);
         this.client.on('error', (err:any) => console.log('Redis Client Error', err));
     }
-    // 储存方法
-    async saveIp(value: string, score: number = 100): Promise<boolean> {
+    /**
+     * 
+     * @param value 代理ip{string}
+     * @param score 分数(默认为10){number}
+     * @returns boolean
+     * 储存方法
+    首次储存的时候分数为10
+    首次测试成功增加分数至100,或测试出现问题的扣分的方法
+     */
+    async saveIp(value: string, score: number = 10): Promise<boolean> {
         try {
             await this.client.zadd("key", score, value)
             return true;
@@ -21,5 +29,6 @@ class save {
         const re =await this.client.zrange("key",0,-1);
         return re;
     }
-}
+    }
+
 export default save;

@@ -22,7 +22,15 @@ class testIp {
         try {
             // console.log("正在使用的ip是:" + ipadd);
             const res = await request.get('http://myip.ipip.net/')
-            console.log("检测使用的ip为" + res.data);
+            if (res.status === 200) {
+                console.log("检测使用的ip为" + res.data)
+                this.saveProxy.saveIp(ip, 100);
+            }
+            else {
+                console.log("检测使用的ip为:"+ip+'失败')
+                this.saveProxy.saveIp(ip, -10);
+            }
+            ;
             // return true
             return
         } catch (error: any) {
