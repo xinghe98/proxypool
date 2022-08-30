@@ -6,7 +6,7 @@ const saveProxy = new save();
 const testip = new testIp();
 async function main() {
   // getIp.run();
-  await testip.run();
+  setInterval(async () => {testip.run();} ,60000)
   saveProxy.client.quit();
 }
 // console.log(config.proxyurl);
