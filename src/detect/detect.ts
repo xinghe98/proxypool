@@ -34,9 +34,10 @@ class testIp {
             // return true
             return
         } catch (error: any) {
-            console.log(error.code);
-            this.saveProxy.saveIp(ip, -10);
-            return
+            // console.log(error.code);
+            console.log("检测使用的ip为:"+ip+'失败')
+            const re = this.saveProxy.saveIp(ip, -10);
+
             // return false
         }
     }

@@ -20,9 +20,11 @@ class save {
         try {
             if (score<0) {
                const originscore = await this.returnScore(value);
+               console.log(originscore+score);
                 await this.client.zadd("key", originscore+score, value)
-            }
+            }else{
             await this.client.zadd("key", score, value)
+            }
             return true;
         } catch (err) {
             return false;
