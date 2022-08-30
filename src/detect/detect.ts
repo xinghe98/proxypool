@@ -34,7 +34,9 @@ class testIp {
             // return true
             return
         } catch (error: any) {
-            console.log(error.config.proxy);
+            console.log(error.code);
+            this.saveProxy.saveIp(ip, -10);
+            return
             // return false
         }
     }

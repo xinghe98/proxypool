@@ -18,11 +18,24 @@ class save {
      */
     async saveIp(value: string, score: number = 10): Promise<boolean> {
         try {
+            if (score<0) {
+               const originscore = await this.returnScore(value);
+                await this.client.zadd("key", originscore+score, value)
+            }
             await this.client.zadd("key", score, value)
             return true;
         } catch (err) {
             return false;
         }
+    }
+    /**
+     * 
+     * @returns Number(score)
+     */
+    async returnScore(value:string) :Promise<number>{
+      const score =  await this.client.zscore("key",value);
+      return Number(score)
+
     }
     // 获取全部代理方法
     async fetchIp(): Promise<string[]> {
