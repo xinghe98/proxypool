@@ -13,10 +13,10 @@ class save {
      * @param score 分数(默认为10){number}
      * @returns boolean
      * 储存方法
-    首次储存的时候分数为10
+    首次储存的时候分数为20
     首次测试成功增加分数至100,或测试出现问题的扣分的方法
      */
-    async saveIp(value: string, score: number = 10): Promise<boolean> {
+    async saveIp(value: string, score: number = 20): Promise<boolean> {
         try {
             if (score<0) {
             const originscore = await this.returnScore(value);
