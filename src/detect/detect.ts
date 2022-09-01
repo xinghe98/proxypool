@@ -22,7 +22,7 @@ class testIp {
             // console.log("正在使用的ip是:" + ipadd);
             const res = await request.get('https://www.91porn.com/v.php?page=1')
             if (res.status === 200) {
-                console.log("检测使用的ip为" + res.data.match(/<title>(.*?)<\/title>/)[1]);
+                console.log("检测使用的ip为" + ip+'成功');
                 this.saveProxy.saveIp(ip, 100);
             }
             else {
